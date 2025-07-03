@@ -1,0 +1,467 @@
+/* Klump Product Ads Frontend Styles - Enhanced Design with Dynamic Colors */
+
+:root {
+    --brand-main: #2e08f4;
+    --brand-sub: #cf13e4;
+    --brand-gradient: linear-gradient(135deg, #2e08f4 0%, #cf13e4 100%);
+    --klump-background: #f8f9ff;
+    --klump-text: #6c757d;
+    --klump-price: #2e08f4;
+    --klump-border: #e9ecef;
+}
+
+#klump__ad {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid rgba(46, 8, 244, 0.2);
+    background: linear-gradient(135deg, var(--klump-background) 0%, #faf8ff 100%);
+    border-radius: 15px !important;
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+    box-shadow: 0 4px 15px rgba(46, 8, 244, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: visible;
+    cursor: pointer;
+}
+
+#klump__ad::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    overflow: hidden;
+    right: 20px;
+    height: 4px;
+    background: var(--brand-gradient);
+    border-radius: 15px 15px 0 0 !important;
+}
+
+#klump__ad:hover {
+    box-shadow: 0 6px 25px rgba(46, 8, 244, 0.15);
+    transform: translateY(-2px);
+    border-color: rgba(46, 8, 244, 0.3);
+}
+
+.klump-ad-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.klump-text-section {
+    flex: 1;
+}
+
+#klump__ad .klump-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--klump-price);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#klump__ad .klump-description {
+    font-size: 14px;
+    color: var(--klump-text);
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+    font-weight: 500;
+}
+
+#klump__ad .klump-price-info {
+    font-size: 16px;
+    color: var(--klump-price);
+    margin-top: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#klump__ad .klump-price-info strong {
+    color: var(--brand-sub);
+    font-size: 18px;
+}
+
+.klump-logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.klump-logo {
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.klump-logo:hover {
+    opacity: 1;
+}
+
+.klump-payment-icons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.payment-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(46, 8, 244, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+}
+
+.payment-icon:hover {
+    background: var(--brand-gradient);
+    border-color: var(--klump-price);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 8, 244, 0.3);
+}
+
+.payment-icon:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.payment-icon.selected {
+    background: var(--brand-gradient);
+    border-color: var(--klump-price);
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(46, 8, 244, 0.4);
+}
+
+.payment-icon:active {
+    transform: scale(0.95);
+}
+
+/* Tooltip styles */
+.payment-icon[data-icon="card"]:hover::after {
+    content: "Credit Card";
+}
+
+.payment-icon[data-icon="mobile"]:hover::after {
+    content: "Mobile Payment";
+}
+
+.payment-icon[data-icon="bank"]:hover::after {
+    content: "Bank Transfer";
+}
+
+.payment-icon[data-icon="wallet"]:hover::after {
+    content: "Digital Wallet";
+}
+
+/* Add subtle animation */
+@keyframes klump-pulse {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(46, 8, 244, 0.1);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(46, 8, 244, 0.2);
+    }
+}
+
+#klump__ad {
+    animation: klump-pulse 4s ease-in-out infinite;
+}
+
+/* Click effect */
+#klump__ad:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(46, 8, 244, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #klump__ad {
+        margin: 15px 0;
+        padding: 16px;
+    }
+    
+    .klump-ad-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .klump-logo-section {
+        flex-direction: row;
+        gap: 20px;
+    }
+    
+    .klump-logo svg {
+        width: 50px;
+        height: 20px;
+    }
+    
+    .payment-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    #klump__ad .klump-title {
+        font-size: 16px;
+        justify-content: center;
+    }
+    
+    #klump__ad .klump-description {
+        font-size: 13px;
+        text-align: center;
+    }
+    
+    #klump__ad .klump-price-info {
+        justify-content: center;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .klump-payment-icons {
+        gap: 6px;
+    }
+    
+    .payment-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+    #klump__ad {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border-color: rgba(207, 19, 228, 0.3);
+        border-radius: 15px !important;
+        color: #f8f9fa;
+    }
+    
+    #klump__ad::before {
+        background: var(--brand-gradient);
+        border-radius: 15px 15px 0 0 !important;
+    }
+    
+    #klump__ad .klump-title {
+        color: var(--klump-border);
+    }
+    
+    #klump__ad .klump-description {
+        color: #adb5bd;
+    }
+    
+    .payment-icon {
+        background: rgba(0, 0, 0, 0.3);
+        border-color: rgba(207, 19, 228, 0.2);
+    }
+    
+    #klump__ad:hover {
+        border-color: rgba(207, 19, 228, 0.5);
+        box-shadow: 0 6px 25px rgba(207, 19, 228, 0.2);
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    #klump__ad {
+        border: 2px solid var(--brand-main);
+        background: white;
+    }
+    
+    #klump__ad .klump-title {
+        color: var(--klump-price);
+    }
+    
+    #klump__ad .klump-description {
+        color: #333;
+    }
+    
+    .payment-icon {
+        border: 2px solid var(--brand-main);
+    }
+}
+
+/* Print styles */
+@media print {
+    #klump__ad {
+        background: white !important;
+        border: 1px solid #333 !important;
+        box-shadow: none !important;
+        margin: 10px 0 !important;
+        page-break-inside: avoid;
+    }
+    
+    #klump__ad .klump-title,
+    #klump__ad .klump-description {
+        color: #333 !important;
+    }
+    
+    .klump-payment-icons {
+        display: none;
+    }
+}
+
+/* Circular Animation for Klump Ad - Fixed Version */
+.klump-animated {
+    position: relative;
+    overflow: visible;
+}
+
+.klump-animated::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--brand-main);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--brand-main);
+    z-index: 999;
+    animation: klump-border-travel 4s linear infinite;
+    /* Start at top-left */
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes klump-border-travel {
+    0% {
+        /* Top-left */
+        top: 0;
+        left: 0;
+    }
+    25% {
+        /* Top-right */
+        top: 0;
+        left: 100%;
+    }
+    50% {
+        /* Bottom-right */
+        top: 100%;
+        left: 100%;
+    }
+    75% {
+        /* Bottom-left */
+        top: 100%;
+        left: 0;
+    }
+    100% {
+        /* Back to top-left */
+        top: 0;
+        left: 0;
+    }
+}
+
+/* Smooth circular animation */
+.klump-animated.smooth-circle::after {
+    animation: klump-smooth-border 4s linear infinite;
+}
+
+@keyframes klump-smooth-border {
+    0% {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    25% {
+        top: 50%;
+        left: 100%;
+        transform: translate(-50%, -50%);
+    }
+    50% {
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    75% {
+        top: 50%;
+        left: 0;
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Animation speed control */
+.klump-animated[data-animation-speed="1"]::after { animation-duration: 1s; }
+.klump-animated[data-animation-speed="1.5"]::after { animation-duration: 1.5s; }
+.klump-animated[data-animation-speed="2"]::after { animation-duration: 2s; }
+.klump-animated[data-animation-speed="2.5"]::after { animation-duration: 2.5s; }
+.klump-animated[data-animation-speed="3"]::after { animation-duration: 3s; }
+.klump-animated[data-animation-speed="3.5"]::after { animation-duration: 3.5s; }
+.klump-animated[data-animation-speed="4"]::after { animation-duration: 4s; }
+.klump-animated[data-animation-speed="4.5"]::after { animation-duration: 4.5s; }
+.klump-animated[data-animation-speed="5"]::after { animation-duration: 5s; }
+.klump-animated[data-animation-speed="5.5"]::after { animation-duration: 5.5s; }
+.klump-animated[data-animation-speed="6"]::after { animation-duration: 6s; }
+.klump-animated[data-animation-speed="6.5"]::after { animation-duration: 6.5s; }
+.klump-animated[data-animation-speed="7"]::after { animation-duration: 7s; }
+.klump-animated[data-animation-speed="7.5"]::after { animation-duration: 7.5s; }
+.klump-animated[data-animation-speed="8"]::after { animation-duration: 8s; }
+.klump-animated[data-animation-speed="8.5"]::after { animation-duration: 8.5s; }
+.klump-animated[data-animation-speed="9"]::after { animation-duration: 9s; }
+.klump-animated[data-animation-speed="9.5"]::after { animation-duration: 9.5s; }
+.klump-animated[data-animation-speed="10"]::after { animation-duration: 10s; }
+
+/* Smooth circle speed control */
+.klump-animated.smooth-circle[data-animation-speed="1"]::after { animation: klump-smooth-border 1s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="1.5"]::after { animation: klump-smooth-border 1.5s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="2"]::after { animation: klump-smooth-border 2s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="2.5"]::after { animation: klump-smooth-border 2.5s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="3"]::after { animation: klump-smooth-border 3s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="3.5"]::after { animation: klump-smooth-border 3.5s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="4"]::after { animation: klump-smooth-border 4s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="4.5"]::after { animation: klump-smooth-border 4.5s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="5"]::after { animation: klump-smooth-border 5s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="5.5"]::after { animation: klump-smooth-border 5.5s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="6"]::after { animation: klump-smooth-border 6s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="6.5"]::after { animation: klump-smooth-border 6.5s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="7"]::after { animation: klump-smooth-border 7s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="7.5"]::after { animation: klump-smooth-border 7.5s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="8"]::after { animation: klump-smooth-border 8s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="8.5"]::after { animation: klump-smooth-border 8.5s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="9"]::after { animation: klump-smooth-border 9s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="9.5"]::after { animation: klump-smooth-border 9.5s linear infinite; }
+.klump-animated.smooth-circle[data-animation-speed="10"]::after { animation: klump-smooth-border 10s linear infinite; }
+
+/* Pause animation on hover */
+.klump-animated:hover::after {
+    animation-play-state: paused;
+}
+
+/* Accessibility - reduce motion */
+@media (prefers-reduced-motion: reduce) {
+    .klump-animated::after {
+        animation: none;
+        opacity: 0.5;
+    }
+}

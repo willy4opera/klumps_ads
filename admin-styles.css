@@ -1,0 +1,1421 @@
+/* Klump Product Ads Admin Styles - Brand Colors */
+
+:root {
+    --brand-main: #2e08f4;
+    --brand-sub: #cf13e4;
+    --brand-main-hover: #2407d9;
+    --brand-sub-hover: #b812c8;
+    --brand-gradient: linear-gradient(135deg, var(--brand-main) 0%, var(--brand-sub) 100%);
+    --brand-gradient-hover: linear-gradient(135deg, var(--brand-main-hover) 0%, var(--brand-sub-hover) 100%);
+}
+
+.klump-admin-wrap {
+    margin: 20px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.klump-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--brand-gradient);
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(46, 8, 244, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.klump-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.klump-logo h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.klump-icon {
+    font-size: 30px;
+    margin-right: 10px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.klump-subtitle {
+    margin: 5px 0 0 0;
+    opacity: 0.95;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+.klump-status-indicator {
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+}
+
+.status-active {
+    background: rgba(46, 204, 113, 0.25);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+.status-warning {
+    background: rgba(241, 196, 15, 0.25);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
+}
+
+.status-inactive {
+    background: rgba(231, 76, 60, 0.25);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.klump-main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.klump-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    overflow: hidden;
+    border: 1px solid rgba(46, 8, 244, 0.1);
+    transition: all 0.3s ease;
+}
+
+.klump-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.klump-card-header {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+    padding: 20px;
+    border-bottom: 1px solid rgba(46, 8, 244, 0.1);
+}
+
+.klump-card-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--brand-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.klump-card-header h3 .dashicons {
+    color: var(--brand-sub);
+}
+
+.klump-card-body {
+    padding: 25px;
+}
+
+.klump-field-group {
+    margin-bottom: 25px;
+}
+
+.klump-field-group:last-child {
+    margin-bottom: 0;
+}
+
+.klump-field-label {
+    display: block;
+    font-weight: 600;
+    color: var(--brand-main);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.klump-field-description {
+    color: #6c757d;
+    font-size: 13px;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+.klump-field-description a {
+    color: var(--brand-sub);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.klump-field-description a:hover {
+    text-decoration: underline;
+    color: var(--brand-sub-hover);
+}
+
+.required {
+    color: var(--brand-sub);
+}
+
+/* Form Controls */
+.klump-text-input,
+.klump-number-input,
+.klump-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.klump-text-input:focus,
+.klump-number-input:focus,
+.klump-select:focus {
+    outline: none;
+    border-color: var(--brand-main);
+    box-shadow: 0 0 0 4px rgba(46, 8, 244, 0.1);
+}
+
+.klump-key-input-wrapper {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.klump-key-input {
+    flex: 1;
+    padding: 14px 18px;
+    border: 2px solid #e1e5e9;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    transition: all 0.3s ease;
+    background: #f8f9ff;
+}
+
+.klump-key-input:focus {
+    outline: none;
+    border-color: var(--brand-main);
+    box-shadow: 0 0 0 4px rgba(46, 8, 244, 0.1);
+    background: white;
+}
+
+.klump-validate-btn {
+    padding: 14px 24px;
+    background: var(--brand-gradient);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(46, 8, 244, 0.3);
+}
+
+.klump-validate-btn:hover {
+    background: var(--brand-gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 8, 244, 0.4);
+}
+
+.klump-validate-btn:active {
+    transform: translateY(0);
+}
+
+.klump-validation-result {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.klump-validation-result.valid {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.klump-validation-result.invalid {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.klump-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Toggle Switch */
+.klump-toggle {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.klump-toggle input[type="checkbox"] {
+    display: none;
+}
+
+.klump-toggle-slider {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: #ccc;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.klump-toggle-slider::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.klump-toggle input[type="checkbox"]:checked + .klump-toggle-slider {
+    background: var(--brand-gradient);
+}
+
+.klump-toggle input[type="checkbox"]:checked + .klump-toggle-slider::before {
+    transform: translateX(30px);
+}
+
+.klump-toggle-label {
+    font-weight: 600;
+    color: var(--brand-main);
+}
+
+/* Checkbox */
+.klump-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.klump-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.klump-checkbox-mark {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #e1e5e9;
+    border-radius: 6px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.klump-checkbox input[type="checkbox"]:checked + .klump-checkbox-mark {
+    background: var(--brand-gradient);
+    border-color: var(--brand-main);
+}
+
+.klump-checkbox input[type="checkbox"]:checked + .klump-checkbox-mark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.klump-checkbox-label {
+    color: var(--brand-main);
+    font-weight: 500;
+}
+
+/* Preview */
+.klump-preview {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(46, 8, 244, 0.1);
+}
+
+.klump-ad-preview {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    padding: 18px;
+    max-width: 400px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.klump-ad-preview .klump-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--brand-main);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.klump-ad-preview .klump-description {
+    font-size: 13px;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+/* Submit Section */
+.klump-submit-section {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 30px;
+    padding: 25px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(46, 8, 244, 0.1);
+}
+
+.klump-save-btn {
+    background: var(--brand-gradient) !important;
+    border: none !important;
+    padding: 14px 32px !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 15px rgba(46, 8, 244, 0.3) !important;
+    transition: all 0.3s ease !important;
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.klump-save-btn:hover {
+    background: var(--brand-gradient-hover) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(46, 8, 244, 0.4) !important;
+}
+
+.klump-reset-btn {
+    background: #6c757d !important;
+    color: white !important;
+    border: none !important;
+    padding: 14px 24px !important;
+    border-radius: 10px !important;
+    transition: all 0.3s ease !important;
+    font-weight: 600 !important;
+}
+
+.klump-reset-btn:hover {
+    background: #5a6268 !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Sidebar */
+.klump-sidebar .klump-card {
+    margin-bottom: 20px;
+}
+
+.klump-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.klump-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--brand-main);
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(46, 8, 244, 0.1);
+}
+
+.klump-link:hover {
+    background: var(--brand-gradient);
+    color: white;
+    text-decoration: none;
+    transform: translateX(4px);
+}
+
+/* SweetAlert2 Custom Styling */
+.swal2-popup {
+    border-radius: 16px !important;
+    box-shadow: 0 10px 40px rgba(46, 8, 244, 0.3) !important;
+}
+
+.swal2-header .swal2-title {
+    color: var(--brand-main) !important;
+    font-weight: 600 !important;
+}
+
+.swal2-confirm {
+    background: var(--brand-gradient) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 12px 24px !important;
+}
+
+.swal2-confirm:hover {
+    background: var(--brand-gradient-hover) !important;
+}
+
+.swal2-cancel {
+    background: #6c757d !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 12px 24px !important;
+}
+
+.swal2-icon.swal2-success {
+    border-color: var(--brand-main) !important;
+    color: var(--brand-main) !important;
+}
+
+.swal2-icon.swal2-error {
+    border-color: var(--brand-sub) !important;
+    color: var(--brand-sub) !important;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .klump-main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .klump-field-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .klump-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .klump-key-input-wrapper {
+        flex-direction: column;
+    }
+    
+    .klump-key-input {
+        width: 100%;
+    }
+    
+    .klump-submit-section {
+        flex-direction: column;
+    }
+}
+
+/* Loading Animation */
+@keyframes klump-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.klump-loading {
+    animation: klump-spin 1s linear infinite;
+}
+
+/* Floating animation for header */
+@keyframes klump-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+}
+
+.klump-icon {
+    animation: klump-float 3s ease-in-out infinite;
+}
+
+/* Pulse animation for status indicators */
+@keyframes klump-pulse {
+    0% { box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); }
+    50% { box-shadow: 0 4px 20px rgba(46, 204, 113, 0.5); }
+    100% { box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); }
+}
+
+.status-active {
+    animation: klump-pulse 2s ease-in-out infinite;
+}
+
+/* Color Customization Styles */
+.klump-color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.klump-color-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.klump-color-input {
+    width: 50px;
+    height: 40px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: none;
+    padding: 0;
+}
+
+.klump-color-input:hover {
+    border-color: var(--brand-main);
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(46, 8, 244, 0.2);
+}
+
+.klump-color-text {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #f8f9fa;
+    font-family: monospace;
+    font-size: 13px;
+    color: #495057;
+    text-transform: uppercase;
+}
+
+.klump-color-presets {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.klump-color-presets h4 {
+    margin: 0 0 15px 0;
+    color: var(--brand-main);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.klump-preset-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.klump-preset-btn {
+    padding: 10px 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    color: #495057;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.klump-preset-btn:hover {
+    border-color: var(--brand-main);
+    color: var(--brand-main);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 8, 244, 0.2);
+}
+
+.klump-preset-btn:active {
+    transform: translateY(0);
+}
+
+.klump-preset-btn[data-preset="default"] {
+    background: linear-gradient(135deg, #2e08f4, #cf13e4);
+    color: white;
+    border-color: #2e08f4;
+}
+
+.klump-preset-btn[data-preset="purple"] {
+    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    color: white;
+    border-color: #8b5cf6;
+}
+
+.klump-preset-btn[data-preset="blue"] {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    border-color: #3b82f6;
+}
+
+.klump-preset-btn[data-preset="green"] {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border-color: #10b981;
+}
+
+.klump-preset-btn[data-preset="orange"] {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    border-color: #f59e0b;
+}
+
+.klump-preset-btn[data-preset="dark"] {
+    background: linear-gradient(135deg, #374151, #1f2937);
+    color: white;
+    border-color: #374151;
+}
+
+/* Color preview in Live Preview section */
+.klump-preview .klump-ad-preview {
+    transition: all 0.3s ease;
+}
+
+/* Responsive design for color grid */
+@media (max-width: 768px) {
+    .klump-color-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .klump-preset-buttons {
+        justify-content: center;
+    }
+    
+    .klump-preset-btn {
+        flex: 1;
+        min-width: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .klump-color-input-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .klump-color-input {
+        width: 100%;
+        height: 50px;
+    }
+}
+
+/* Color animation for smooth transitions */
+.klump-color-transition {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Color picker enhancement */
+.klump-color-input::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+}
+
+.klump-color-input::-webkit-color-swatch {
+    border: none;
+    border-radius: 6px;
+}
+
+.klump-color-input::-moz-color-swatch {
+    border: none;
+    border-radius: 6px;
+}
+
+/* Advanced Color Settings Styles */
+.klump-advanced-color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.klump-color-section {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.klump-color-section:hover {
+    background: #f5f5f5;
+    border-color: var(--brand-main);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 8, 244, 0.1);
+}
+
+.klump-color-section h4 {
+    margin: 0 0 15px 0;
+    color: var(--brand-main);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.klump-color-section h4 .dashicons {
+    font-size: 16px;
+}
+
+.klump-color-section .klump-field-group {
+    margin-bottom: 15px;
+}
+
+.klump-color-section .klump-field-group:last-child {
+    margin-bottom: 0;
+}
+
+.klump-section-toggle {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+
+.klump-card-description {
+    margin: 5px 0 0 0;
+    font-size: 13px;
+    color: #666;
+    font-weight: normal;
+}
+
+/* Color Targeting Controls */
+.klump-color-targeting {
+    background: #fff;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.klump-color-targeting.active {
+    border-color: var(--brand-main);
+    background: rgba(46, 8, 244, 0.02);
+}
+
+.klump-target-selector {
+    display: inline-flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.klump-target-btn {
+    padding: 8px 16px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.klump-target-btn:hover {
+    border-color: var(--brand-main);
+    color: var(--brand-main);
+}
+
+.klump-target-btn.active {
+    background: var(--brand-main);
+    border-color: var(--brand-main);
+    color: white;
+}
+
+/* Color Sync Controls */
+.klump-color-sync {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+    padding: 15px;
+    background: #f0f0f1;
+    border-radius: 6px;
+}
+
+.klump-sync-btn {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    color: #555;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.klump-sync-btn:hover {
+    background: var(--brand-main);
+    border-color: var(--brand-main);
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .klump-advanced-color-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .klump-color-section {
+        padding: 15px;
+    }
+    
+    .klump-target-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .klump-target-btn {
+        text-align: center;
+    }
+}
+
+/* Color preview enhancements */
+.klump-color-live-preview {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.klump-color-live-preview h5 {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.klump-preview-elements {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.klump-preview-element {
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.klump-preview-element.title {
+    background: var(--klump-title, #2e08f4);
+    color: white;
+}
+
+.klump-preview-element.text {
+    background: white;
+    color: var(--klump-text, #6c757d);
+}
+
+.klump-preview-element.price {
+    background: white;
+    color: var(--klump-price, #2e08f4);
+    font-weight: bold;
+}
+
+.klump-preview-element.icon {
+    background: var(--klump-icon-bg, #ffffff);
+    border: 2px solid var(--klump-border, #e9ecef);
+}
+
+/* Element highlighting for color targeting */
+.klump-preview .highlighted {
+    position: relative;
+    outline: 2px dashed var(--brand-main) !important;
+    outline-offset: 2px;
+    background: rgba(46, 8, 244, 0.05) !important;
+    animation: highlight-pulse 1s ease-in-out infinite;
+}
+
+@keyframes highlight-pulse {
+    0%, 100% { 
+        outline-color: var(--brand-main);
+        background: rgba(46, 8, 244, 0.05);
+    }
+    50% { 
+        outline-color: var(--brand-sub);
+        background: rgba(207, 19, 228, 0.05);
+    }
+}
+
+/* Clickable preview elements */
+.klump-preview .klump-title,
+.klump-preview .klump-description,
+.klump-preview .klump-price-info,
+.klump-preview .payment-icon,
+.klump-preview .klump-ad-preview {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.klump-preview .klump-title:hover,
+.klump-preview .klump-description:hover,
+.klump-preview .klump-price-info:hover,
+.klump-preview .payment-icon:hover {
+    background: rgba(46, 8, 244, 0.1);
+    transform: scale(1.02);
+}
+
+/* Advanced color section animations */
+.klump-color-section.updating {
+    background: linear-gradient(45deg, #f9f9f9, #f0f0f1, #f9f9f9);
+    background-size: 200% 200%;
+    animation: color-update 1s ease-in-out;
+}
+
+@keyframes color-update {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Color input focus states */
+.klump-color-input:focus {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(46, 8, 244, 0.2);
+}
+
+.klump-color-text:focus {
+    border-color: var(--brand-main);
+    box-shadow: 0 0 0 2px rgba(46, 8, 244, 0.1);
+}
+
+/* Icon Management Styles */
+.klump-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.klump-icon-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+.klump-icon-input:focus {
+    border-color: var(--brand-main);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(46, 8, 244, 0.1);
+    outline: none;
+}
+
+.klump-icon-input:hover {
+    border-color: var(--brand-main);
+    background: white;
+}
+
+/* Animation Settings Styles */
+.klump-range-input {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #ddd;
+    outline: none;
+    appearance: none;
+    margin: 10px 0;
+}
+
+.klump-range-input::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--brand-gradient);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(46, 8, 244, 0.3);
+}
+
+.klump-range-input::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--brand-gradient);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(46, 8, 244, 0.3);
+}
+
+.klump-range-value {
+    display: inline-block;
+    background: var(--brand-main);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 10px;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* Icon Preview */
+.klump-icon-preview {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.klump-icon-preview-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 2px solid #ddd;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.klump-icon-preview-item:hover {
+    transform: scale(1.1);
+    border-color: var(--brand-main);
+}
+
+/* Range input styling improvements */
+.klump-range-input::-webkit-slider-track {
+    background: linear-gradient(to right, var(--brand-main) 0%, var(--brand-sub) 100%);
+    height: 8px;
+    border-radius: 5px;
+}
+
+.klump-range-input::-moz-range-track {
+    background: linear-gradient(to right, var(--brand-main) 0%, var(--brand-sub) 100%);
+    height: 8px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .klump-icon-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .klump-icon-input {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    .klump-icon-preview {
+        justify-content: center;
+    }
+}
+
+/* Animation Preview Styles */
+.klump-animation-preview {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.klump-animation-preview h5 {
+    margin: 0 0 15px 0;
+    color: var(--brand-main);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.klump-preview-box {
+    width: 200px;
+    height: 80px;
+    border: 2px solid var(--brand-main);
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #faf8ff 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--brand-main);
+    font-weight: 600;
+    position: relative;
+    margin: 0 auto;
+}
+
+/* Make sure the preview animation works */
+.klump-preview-box.klump-animated::before {
+    background: radial-gradient(circle, var(--brand-main) 0%, var(--brand-sub) 70%, transparent 100%);
+    box-shadow: 0 0 10px var(--brand-main), 0 0 20px var(--brand-sub);
+}
+
+.klump-preview-box.klump-animated.smooth-circle::before {
+    animation: klump-smooth-circle var(--animation-speed, 4s) linear infinite;
+}
+
+/* Animation style selector enhancement */
+.klump-select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+    transition: border-color 0.3s ease;
+}
+
+.klump-select:focus {
+    border-color: var(--brand-main);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(46, 8, 244, 0.1);
+}
+
+/* Icon Upload Styles */
+.klump-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.klump-icon-field {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    background: #fff;
+}
+
+.klump-icon-controls {
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.klump-icon-upload-btn,
+.klump-icon-remove-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.klump-icon-upload-btn {
+    background: var(--brand-main);
+    color: white;
+    border: none;
+}
+
+.klump-icon-upload-btn:hover {
+    background: var(--brand-sub);
+    transform: translateY(-1px);
+}
+
+.klump-icon-remove-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+}
+
+.klump-icon-remove-btn:hover {
+    background: #dc3545;
+}
+
+.klump-icon-display {
+    margin-top: 10px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+.klump-icon-preview {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.klump-icon-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #6c757d;
+    font-size: 14px;
+    padding: 15px;
+}
+
+.klump-icon-placeholder .dashicons {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #adb5bd;
+}
+
+.klump-icon-placeholder p {
+    margin: 0;
+    font-style: italic;
+}
+
+/* Icon preset buttons */
+.klump-icon-presets {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.klump-icon-presets h4 {
+    margin: 0 0 15px 0;
+    color: var(--brand-main);
+    font-size: 16px;
+}
+
+.klump-preset-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.klump-icon-preset-btn {
+    padding: 8px 15px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 13px;
+}
+
+.klump-icon-preset-btn:hover {
+    background: var(--brand-main);
+    color: white;
+    border-color: var(--brand-main);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .klump-icon-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .klump-icon-controls {
+        flex-direction: column;
+    }
+    
+    .klump-preset-buttons {
+        flex-direction: column;
+    }
+}
+
+/* Enhanced field styling */
+.klump-icon-field .klump-field-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.klump-icon-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 14px;
+}
+
+.klump-icon-input:focus {
+    border-color: var(--brand-main);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(46, 8, 244, 0.1);
+}
+
+/* Animation for successful upload */
+.klump-icon-display.success {
+    border-color: #28a745;
+    background: #f0fff4;
+    animation: success-pulse 0.5s ease-in-out;
+}
+
+@keyframes success-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* Loading state */
+.klump-icon-upload-btn.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.klump-icon-upload-btn.loading::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+    margin-right: 5px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
