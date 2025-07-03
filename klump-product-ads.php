@@ -365,7 +365,7 @@ class KlumpProductAds {
             $modal_attributes = ' data-youtube-url="' . esc_attr($youtube_url) . '"';
         }
         
-        echo 'u003cdiv id="klump__ad" class="' . esc_attr($animation_class . ' ' . $modal_class) . '" data-animation-speed="' . esc_attr($animation_speed) . '"' . $modal_attributes . 'u003e';
+        echo '<div id="klump__ad" class="' . esc_attr($animation_class . ' ' . $modal_class) . '" data-animation-speed="' . esc_attr($animation_speed) . '"' . $modal_attributes . '>';
 
         echo '<input type="hidden" value="' . esc_attr($price) . '" id="klump__price">';
         echo '<input type="hidden" value="' . esc_attr($merchant_key) . '" id="klump__merchant__public__key">';

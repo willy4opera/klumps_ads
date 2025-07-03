@@ -290,3 +290,17 @@ body.klump-modal-open {
         display: none !important;
     }
 }
+
+/* Make modal trigger clickable */
+.klump-modal-trigger {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.klump-modal-trigger:hover {
+    opacity: 0.9;
+}
+
+.klump-product-ad.klump-modal-trigger {
+    cursor: pointer;
+}
