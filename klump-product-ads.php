@@ -39,6 +39,8 @@ class KlumpProductAds {
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
         add_action('wp_ajax_klump_validate_key', array($this, 'validate_merchant_key'));
         add_action('wp_ajax_klump_save_settings', array($this, 'ajax_save_settings'));
+        add_action('wp_ajax_klump_log_modal_error', array($this, 'ajax_log_modal_error'));
+        add_action('wp_ajax_nopriv_klump_log_modal_error', array($this, 'ajax_log_modal_error'));
         register_activation_hook(__FILE__, array($this, 'activate'));
         register_deactivation_hook(__FILE__, array($this, 'deactivate'));
         
@@ -60,9 +62,18 @@ class KlumpProductAds {
     
     public function enqueue_styles() {
         if (is_product()) {
+            // Enqueue main styles
             wp_enqueue_style(
                 'klump-product-ads-styles',
                 KLUMP_PRODUCT_ADS_PLUGIN_URL . 'assets.css',
+                array(),
+                KLUMP_PRODUCT_ADS_VERSION
+            );
+            
+            // Enqueue modal styles
+            wp_enqueue_style(
+                'klump-modal-styles',
+                KLUMP_PRODUCT_ADS_PLUGIN_URL . 'klump-modal.css',
                 array(),
                 KLUMP_PRODUCT_ADS_VERSION
             );
@@ -97,6 +108,7 @@ class KlumpProductAds {
             
             wp_add_inline_style('klump-product-ads-styles', $custom_css);
             
+            // Enqueue main script
             wp_enqueue_script(
                 'klump-product-ads-script',
                 KLUMP_PRODUCT_ADS_PLUGIN_URL . 'assets.js',
@@ -104,6 +116,24 @@ class KlumpProductAds {
                 KLUMP_PRODUCT_ADS_VERSION,
                 true
             );
+            
+            // Enqueue modal script
+            wp_enqueue_script(
+                'klump-modal-script',
+                KLUMP_PRODUCT_ADS_PLUGIN_URL . 'klump-modal.js',
+                array('jquery'),
+                KLUMP_PRODUCT_ADS_VERSION,
+                true
+            );
+            
+            // Localize script with modal data
+            $youtube_url = get_option('klump_ads_youtube_url', '');
+            wp_localize_script('klump-modal-script', 'klump_modal_data', array(
+                'youtube_url' => $youtube_url,
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('klump_modal_nonce'),
+                'debug_mode' => WP_DEBUG || get_option('klump_ads_debug_mode', false)
+            ));
         }
     }
     
@@ -263,6 +293,21 @@ class KlumpProductAds {
         }
     }
     
+    public function ajax_log_modal_error() {
+        // Check nonce for security
+        check_ajax_referer('klump_modal_nonce', 'nonce');
+        
+        $error = sanitize_text_field($_POST['error'] ?? 'Unknown error');
+        $context = sanitize_text_field($_POST['context'] ?? 'modal');
+        
+        // Log the error
+        if (WP_DEBUG || get_option('klump_ads_debug_mode', false)) {
+            error_log('Klump Modal Error [' . $context . ']: ' . $error);
+        }
+        
+        wp_send_json_success(array('logged' => true));
+    }
+    
     public function add_klump_ad_div() {
         global $product;
         
@@ -300,6 +345,7 @@ class KlumpProductAds {
         $animation_style = get_option('klump_ads_animation_style', 'corner');
         $title_text = get_option('klump_ads_title_text', 'Pay in installments with Klump');
         $description_text = get_option('klump_ads_description_text', 'Split your payment into flexible installments');
+        $youtube_url = get_option('klump_ads_youtube_url', '');
         
         // Output the Klump ad div
         // Build animation classes
@@ -311,7 +357,15 @@ class KlumpProductAds {
             }
         }
         
-        echo '<div id="klump__ad" class="' . esc_attr($animation_class) . '" data-animation-speed="' . esc_attr($animation_speed) . '">';
+        // Build modal trigger classes and attributes
+        $modal_class = 'klump-product-ad';
+        $modal_attributes = '';
+        if (!empty($youtube_url)) {
+            $modal_class .= ' klump-modal-trigger';
+            $modal_attributes = ' data-youtube-url="' . esc_attr($youtube_url) . '"';
+        }
+        
+        echo 'u003cdiv id="klump__ad" class="' . esc_attr($animation_class . ' ' . $modal_class) . '" data-animation-speed="' . esc_attr($animation_speed) . '"' . $modal_attributes . 'u003e';
 
         echo '<input type="hidden" value="' . esc_attr($price) . '" id="klump__price">';
         echo '<input type="hidden" value="' . esc_attr($merchant_key) . '" id="klump__merchant__public__key">';
