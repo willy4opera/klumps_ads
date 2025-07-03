@@ -170,14 +170,24 @@ class KlumpProductAdsAdmin {
                                         <br><strong>Example:</strong> https://youtube.com/shorts/1Hn8li_8J58
                                     </p>
                                     <?php if (!empty($settings['youtube_url'])): ?>
-                                        <div class="klump-youtube-preview">
-                                            <p><strong>Current Video Preview:</strong></p>
-                                            <iframe width="300" height="169" 
-                                                    src="<?php echo esc_url($settings['youtube_url']); ?>" 
-                                                    frameborder="0" 
-                                                    allowfullscreen>
-                                            </iframe>
-                                        </div>
+                                        <?php $embed_url = $this->ensure_embed_format($settings['youtube_url']); ?>
+                                        <?php if (!empty($embed_url)): ?>
+                                            <div class="klump-youtube-preview">
+                                                <p><strong>Current Video Preview:</strong></p>
+                                                <iframe width="300" height="169"
+                                                        src="<?php echo esc_url($embed_url); ?>"
+                                                        frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowfullscreen>
+                                                </iframe>
+                                                <p class="klump-debug-info"><small>Embed URL: <?php echo esc_html($embed_url); ?></small></p>
+                                            </div>
+                                        <?php else: ?>
+                                            <div class="klump-youtube-error">
+                                                <p><strong>Error:</strong> Invalid YouTube URL format. Please enter a valid YouTube URL.</p>
+                                                <p class="klump-debug-info"><small>Stored URL: <?php echo esc_html($settings['youtube_url']); ?></small></p>
+                                            </div>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -778,6 +788,33 @@ class KlumpProductAdsAdmin {
     }
 
     private function get_youtube_video_id($url) {
+    }
+
+    private function ensure_embed_format($url) {
+        if (empty($url)) {
+            return '';
+        }
+        
+        // If already in embed format, return as is
+        if (strpos($url, '/embed/') !== false) {
+            return $url;
+        }
+        
+        // Otherwise, validate and convert
+        $validation = $this->validate_youtube_url($url);
+        if (!$validation['valid']) {
+            error_log('Klump Product Ads: Invalid YouTube URL in preview: ' . $url);
+            return '';
+        }
+        
+        return 'https://www.youtube.com/embed/' . $validation['video_id'];
+    }
+
+    private function debug_youtube_url($url) {
+        error_log('Klump Product Ads: Debug YouTube URL: ' . $url);
+        $validation = $this->validate_youtube_url($url);
+        error_log('Klump Product Ads: Validation result: ' . print_r($validation, true));
+        return $validation;
         $validation = $this->validate_youtube_url($url);
         return $validation['video_id'];
     }
