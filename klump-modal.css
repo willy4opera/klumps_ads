@@ -1,0 +1,306 @@
+/**
+ * Klump Modal CSS - YouTube Video Modal Styles
+ * Responsive modal design for YouTube video display
+ */
+
+/* Prevent body scroll when modal is open */
+body.klump-modal-open {
+    overflow: hidden;
+}
+
+/* Modal overlay - full screen background */
+.klump-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Modal container */
+.klump-modal-container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: klumpModalSlideIn 0.3s ease-out;
+}
+
+/* Modal slide-in animation */
+@keyframes klumpModalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Modal header */
+.klump-modal-header {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #2e08f4 0%, #cf13e4 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.klump-modal-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+}
+
+/* Close button */
+.klump-modal-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.klump-modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.klump-modal-close:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* Modal body */
+.klump-modal-body {
+    padding: 0;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Loading indicator */
+.klump-loading-indicator {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+}
+
+.klump-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e9ecef;
+    border-top: 4px solid #2e08f4;
+    border-radius: 50%;
+    animation: klumpSpin 1s linear infinite;
+    margin: 0 auto 16px;
+}
+
+@keyframes klumpSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Video container */
+.klump-video-container {
+    width: 100%;
+    position: relative;
+    background: #000;
+}
+
+.klump-video-container iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    display: block;
+}
+
+/* Error container */
+.klump-error-container {
+    text-align: center;
+    padding: 60px 20px;
+    color: #dc3545;
+}
+
+.klump-error-message {
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.klump-retry-btn {
+    background: #2e08f4;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.klump-retry-btn:hover {
+    background: #1a04d1;
+    transform: translateY(-1px);
+}
+
+.klump-retry-btn:focus {
+    outline: 2px solid #2e08f4;
+    outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .klump-modal-overlay {
+        padding: 10px;
+    }
+    
+    .klump-modal-container {
+        max-height: 95vh;
+        border-radius: 8px;
+    }
+    
+    .klump-modal-header {
+        padding: 20px 16px 12px;
+        border-radius: 8px 8px 0 0;
+    }
+    
+    .klump-modal-title {
+        font-size: 18px;
+    }
+    
+    .klump-modal-close {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+    
+    .klump-video-container iframe {
+        height: 250px;
+    }
+    
+    .klump-loading-indicator {
+        padding: 40px 20px;
+    }
+    
+    .klump-error-container {
+        padding: 40px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .klump-modal-overlay {
+        padding: 5px;
+    }
+    
+    .klump-modal-container {
+        border-radius: 6px;
+    }
+    
+    .klump-modal-header {
+        padding: 16px 12px 8px;
+        border-radius: 6px 6px 0 0;
+    }
+    
+    .klump-modal-title {
+        font-size: 16px;
+    }
+    
+    .klump-video-container iframe {
+        height: 200px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .klump-modal-overlay {
+        background: rgba(0, 0, 0, 0.95);
+    }
+    
+    .klump-modal-container {
+        border: 2px solid #000;
+    }
+    
+    .klump-modal-close {
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .klump-modal-container {
+        animation: none;
+    }
+    
+    .klump-spinner {
+        animation: none;
+        border: 4px solid #2e08f4;
+        border-radius: 50%;
+    }
+    
+    .klump-modal-close:hover {
+        transform: none;
+    }
+    
+    .klump-retry-btn:hover {
+        transform: none;
+    }
+}
+
+/* Focus management */
+.klump-modal-overlay:focus {
+    outline: none;
+}
+
+/* Ensure proper stacking */
+.klump-modal-overlay {
+    z-index: 999999;
+}
+
+/* Print styles */
+@media print {
+    .klump-modal-overlay {
+        display: none !important;
+    }
+}
+
+/* Make modal trigger clickable */
+.klump-modal-trigger {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.klump-modal-trigger:hover {
+    opacity: 0.9;
+}
+
+.klump-product-ad.klump-modal-trigger {
+    cursor: pointer;
+}

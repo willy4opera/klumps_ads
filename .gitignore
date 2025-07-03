@@ -23,3 +23,22 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Implementation documentation (local reference only)
+implementation-*.md
+PROJECT-SUMMARY.md
+*-report.md
+progress-report.md
+push-setup-guide.md
+PUSH-COMMANDS.md
+test-modal-functionality.md
+
+# Development files
+*.backup
+*-original.*
+*-enhanced.*
+*-working.*
+*-temp.*
+youtube-url-enhancement.php
+fix-*.txt
+missing-*.txt
