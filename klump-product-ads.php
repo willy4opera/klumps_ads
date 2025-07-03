@@ -3,7 +3,7 @@
  * Plugin Name: Klump Product Ads
  * Plugin URI: https://biwillz.com
  * Description: Adds Klump payment ad section to WooCommerce product pages after the product title.
- * Version: 2.0.0
+ * Version: 3.0.0
  * Author: Flashware
  * License: GPL v2 or later
  * Text Domain: klump-product-ads
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('KLUMP_PRODUCT_ADS_VERSION', '1.0.2');
+define('KLUMP_PRODUCT_ADS_VERSION', '3.0.0');
 define('KLUMP_PRODUCT_ADS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('KLUMP_PRODUCT_ADS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -40,6 +40,7 @@ class KlumpProductAds {
         add_action('wp_ajax_klump_validate_key', array($this, 'validate_merchant_key'));
         add_action('wp_ajax_klump_save_settings', array($this, 'ajax_save_settings'));
         add_action('wp_ajax_klump_log_modal_error', array($this, 'ajax_log_modal_error'));
+        add_action('wp_ajax_klump_validate_youtube_url', array($this, 'validate_youtube_url_ajax'));
         add_action('wp_ajax_nopriv_klump_log_modal_error', array($this, 'ajax_log_modal_error'));
         register_activation_hook(__FILE__, array($this, 'activate'));
         register_deactivation_hook(__FILE__, array($this, 'deactivate'));
@@ -186,6 +187,70 @@ class KlumpProductAds {
         ));
     }
     
+    public function validate_youtube_url_ajax() {
+        check_ajax_referer('klump_admin_nonce', 'nonce');
+        
+        $youtube_url = sanitize_url($_POST['youtube_url']);
+        
+        if (!$youtube_url) {
+            wp_send_json_error(['message' => 'YouTube URL is required']);
+            return;
+        }
+        
+        $validation_result = $this->validate_youtube_url_format($youtube_url);
+        
+        if ($validation_result['valid']) {
+            wp_send_json_success(['message' => 'YouTube URL is valid', 'video_id' => $validation_result['video_id']]);
+        } else {
+            wp_send_json_error(['message' => $validation_result['message']]);
+        }
+    }
+    
+    private function validate_youtube_url_format($url) {
+        if (empty($url)) {
+            return array('valid' => false, 'message' => 'YouTube URL is required', 'video_id' => '');
+        }
+        
+        $url = trim($url);
+        
+        // YouTube URL patterns
+        $patterns = array(
+            '/^https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/',
+            '/^https?:\/\/(?:www\.)?youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/',
+            '/^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]{11})/',
+            '/^https?:\/\/(?:www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/'
+        );
+        
+        foreach ($patterns as $pattern) {
+            if (preg_match($pattern, $url, $matches)) {
+                return array(
+                    'valid' => true, 
+                    'message' => 'Valid YouTube URL',
+                    'video_id' => $matches[1]
+                );
+            }
+        }
+        
+        return array(
+            'valid' => false,
+            'message' => 'Invalid YouTube URL format. Please use a valid YouTube watch, shorts, or embed URL.',
+            'video_id' => ''
+        );
+    }
+    
+    public function ajax_log_modal_error() {
+        check_ajax_referer('klump_modal_nonce', 'nonce');
+        
+        $error_message = sanitize_text_field($_POST['error_message'] ?? '');
+        $error_type = sanitize_text_field($_POST['error_type'] ?? 'general');
+        
+        if (!empty($error_message)) {
+            error_log("Klump Modal Error [{$error_type}]: {$error_message}");
+        }
+        
+        wp_send_json_success(['message' => 'Error logged']);
+    }
+    
     /**
      * Helper function to convert relative URLs to absolute URLs
      */
@@ -246,6 +311,7 @@ class KlumpProductAds {
                 'klump_ads_enabled' => isset($_POST['klump_ads_enabled']) ? 'yes' : 'no',
                 'klump_ads_merchant_key' => sanitize_text_field($_POST['klump_ads_merchant_key']),
                 'klump_ads_price' => floatval($_POST['klump_ads_price']),
+                'klump_ads_youtube_url' => esc_url_raw($_POST['klump_ads_youtube_url']),
                 'klump_ads_currency' => sanitize_text_field($_POST['klump_ads_currency']),
                 'klump_ads_use_product_price' => isset($_POST['klump_ads_use_product_price']) ? 'yes' : 'no',
                 'klump_ads_title_text' => sanitize_text_field($_POST['klump_ads_title_text']),
@@ -293,48 +359,32 @@ class KlumpProductAds {
         }
     }
     
-    public function ajax_log_modal_error() {
-        // Check nonce for security
-        check_ajax_referer('klump_modal_nonce', 'nonce');
-        
-        $error = sanitize_text_field($_POST['error'] ?? 'Unknown error');
-        $context = sanitize_text_field($_POST['context'] ?? 'modal');
-        
-        // Log the error
-        if (WP_DEBUG || get_option('klump_ads_debug_mode', false)) {
-            error_log('Klump Modal Error [' . $context . ']: ' . $error);
-        }
-        
-        wp_send_json_success(array('logged' => true));
-    }
-    
     public function add_klump_ad_div() {
-        global $product;
-        
-        if (!is_product() || !$product) {
+        // Check if plugin is enabled
+        if (get_option('klump_ads_enabled', 'yes') !== 'yes') {
             return;
         }
         
-        // Check if plugin is enabled
-        $enabled = get_option('klump_ads_enabled', 'yes');
-        if ($enabled !== 'yes') {
+        // Get the current product
+        global $product;
+        if (!$product) {
             return;
         }
         
         // Get plugin settings
-        $price = get_option('klump_ads_price', '2000');
         $merchant_key = get_option('klump_ads_merchant_key', 'klp_pk_abcde12345fghijkl');
+        $use_product_price = get_option('klump_ads_use_product_price', 'yes');
+        $fallback_price = get_option('klump_ads_price', '2000');
         $currency = get_option('klump_ads_currency', 'NGN');
         
-        // Use product price if available and if setting is enabled
-        $use_product_price = get_option('klump_ads_use_product_price', 'yes');
+        // Calculate price to display
         if ($use_product_price === 'yes' && $product->get_price()) {
             $price = $product->get_price();
+        } else {
+            $price = $fallback_price;
         }
         
-        // Get display texts
-        
-        // Get icon settings
+        // Get custom settings
         $icon_1 = get_option('klump_ads_icon_1', '💳');
         $icon_2 = get_option('klump_ads_icon_2', '📱');
         $icon_3 = get_option('klump_ads_icon_3', '🏦');
@@ -347,7 +397,6 @@ class KlumpProductAds {
         $description_text = get_option('klump_ads_description_text', 'Split your payment into flexible installments');
         $youtube_url = get_option('klump_ads_youtube_url', '');
         
-        // Output the Klump ad div
         // Build animation classes
         $animation_class = '';
         if ($enable_animation === 'yes') {
@@ -438,14 +487,8 @@ class KlumpProductAds {
         register_setting('klump_ads_settings', 'klump_ads_enable_animation');
         register_setting('klump_ads_settings', 'klump_ads_animation_speed');
         register_setting('klump_ads_settings', 'klump_ads_animation_style');
-        register_setting('klump_ads_settings', 'klump_ads_background');
-        register_setting('klump_ads_settings', 'klump_ads_background');
-        register_setting('klump_ads_settings', 'klump_ads_primary_color');
-        register_setting('klump_ads_settings', 'klump_ads_primary_color');
-        register_setting('klump_ads_settings', 'klump_ads_secondary_color');
-        register_setting('klump_ads_settings', 'klump_ads_background_color');
-        register_setting('klump_ads_settings', 'klump_ads_primary_color');
-        register_setting('klump_ads_settings', 'klump_ads_primary_color');
+        register_setting('klump_ads_settings', 'klump_ads_youtube_url');
+        register_setting('klump_ads_settings', 'klump_ads_logo');
     }
     
     public function admin_page() {
@@ -555,14 +598,8 @@ class KlumpProductAds {
         add_option('klump_ads_enable_animation', 'yes');
         add_option('klump_ads_animation_speed', '4');
         add_option('klump_ads_animation_style', 'corner');
-        add_option('klump_ads_background', '#f8f9ff');
-        add_option('klump_ads_background', '#faf8ff');
-        add_option('klump_ads_primary_color', '#2e08f4');
-        add_option('klump_ads_primary_color', '#2e08f4');
-        add_option('klump_ads_secondary_color', '#cf13e4');
-        add_option('klump_ads_background_color', '#ffffff');
-        add_option('klump_ads_primary_color', '#2e08f4');
-        add_option('klump_ads_primary_color', '#2e08f4');
+        add_option('klump_ads_youtube_url', '');
+        add_option('klump_ads_logo', '');
     }
     
     public function deactivate() {

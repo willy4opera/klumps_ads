@@ -351,6 +351,20 @@
             
             validateMerchantKey(key, $(this));
         });
+        
+        // YouTube URL validate button click
+        $('#validate_youtube_btn').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const youtubeUrl = $('#klump_youtube_url').val();
+            
+            if (!youtubeUrl) {
+                showNotification('Please enter a YouTube URL first', 'error');
+                return;
+            }
+            
+            validateYouTubeUrl(youtubeUrl, $(this));
+        });
     }
 
     function validateKeyFormat(key) {
@@ -416,6 +430,58 @@
 
     function clearValidationResult() {
         $('#key_validation_result').removeClass('valid invalid').empty();
+    }
+
+    function validateYouTubeUrl(url, $btn) {
+        const originalHtml = $btn.html();
+        
+        // Show loading state
+        $btn.html('<span class="dashicons dashicons-update klump-loading"></span> Validating...')
+            .prop('disabled', true);
+        
+        $.ajax({
+            url: klump_admin_ajax.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'klump_validate_youtube_url',
+                youtube_url: url,
+                nonce: klump_admin_ajax.nonce
+            },
+            success: function(response) {
+                console.log('YouTube validation response:', response);
+                if (response.success) {
+                    showYouTubeValidationSuccess(response.data.message, response.data.video_id);
+                    showNotification('YouTube URL validation successful!', 'success');
+                } else {
+                    showYouTubeValidationError(response.data.message);
+                    showNotification('YouTube URL validation failed: ' + response.data.message, 'error');
+                }
+            },
+            error: function() {
+                showYouTubeValidationError('Unable to validate YouTube URL. Please try again.');
+                showNotification('Connection error during YouTube validation', 'error');
+            },
+            complete: function() {
+                // Restore button state
+                $btn.html(originalHtml).prop('disabled', false);
+            }
+        });
+    }
+
+    function showYouTubeValidationSuccess(message, videoId) {
+        const $result = $('#youtube_validation_result');
+        let displayMessage = '<i class="dashicons dashicons-yes-alt"></i> ' + message;
+        if (videoId) {
+            displayMessage += ' (Video ID: ' + videoId + ')';
+        }
+        $result.removeClass('invalid').addClass('valid')
+               .html(displayMessage);
+    }
+
+    function showYouTubeValidationError(message) {
+        const $result = $('#youtube_validation_result');
+        $result.removeClass('valid').addClass('invalid')
+               .html('<i class="dashicons dashicons-dismiss"></i> ' + message);
     }
 
     function initializeColorPicker() {
