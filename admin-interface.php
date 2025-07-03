@@ -135,7 +135,7 @@ class KlumpProductAdsAdmin {
                                     <div id="key_validation_result" class="klump-validation-result"></div>
                                     <p class="klump-field-description">
                                         Enter your Klump merchant public key. You can find this in your Klump dashboard under API settings.
-                                        <a href="https://klump.co/dashboard" target="_blank">Get your key here →</a>
+                                        <a href="https://merchant.useklump.com/settings?tab=API+Keys+Webhooks" target="_blank">Get your API key here →</a>
                                     </p>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@ class KlumpProductAdsAdmin {
                                     <p class="klump-field-description">
                                         Enter a YouTube video URL to show in a modal when users click on the Klump ad. 
                                         Supports standard YouTube videos, Shorts, and youtu.be links.
-                                        <br><strong>Example:</strong> https://youtube.com/shorts/1Hn8li_8J58
+                                        <br><strong>Example:</strong> https://youtube.com/shorts/YOUR_VIDEO_ID
                                     </p>
                                     <?php if (!empty($settings['youtube_url'])): ?>
                                         <?php $embed_url = $this->ensure_embed_format($settings['youtube_url']); ?>
@@ -554,13 +554,13 @@ class KlumpProductAdsAdmin {
                         <div class="klump-card-body">
                             <p>Klump is a leading buy-now-pay-later service that helps increase conversion rates by offering flexible payment plans to your customers.</p>
                             <div class="klump-links">
-                                <a href="https://klump.co" target="_blank" class="klump-link">
+                                <a href="https://useklump.com" target="_blank" class="klump-link">
                                     <span class="dashicons dashicons-external"></span> Visit Klump.co
                                 </a>
-                                <a href="https://klump.co/dashboard" target="_blank" class="klump-link">
+                                <a href="https://merchant.useklump.com/settings?tab=API+Keys+Webhooks" target="_blank" class="klump-link">
                                     <span class="dashicons dashicons-admin-users"></span> Merchant Dashboard
                                 </a>
-                                <a href="https://docs.klump.co" target="_blank" class="klump-link">
+                                <a href="https://docs.useklump.com/docs" target="_blank" class="klump-link">
                                     <span class="dashicons dashicons-book-alt"></span> Documentation
                                 </a>
                             </div>
@@ -574,11 +574,11 @@ class KlumpProductAdsAdmin {
                         <div class="klump-card-body">
                             <p>Having trouble with the integration? We're here to help!</p>
                             <div class="klump-links">
-                                <a href="mailto:support@klump.co" class="klump-link">
+                                <a href="mailto:icare@williamsobi.com.ng" class="klump-link">
                                     <span class="dashicons dashicons-email-alt"></span> Email Support
                                 </a>
-                                <a href="https://klump.co/contact" target="_blank" class="klump-link">
-                                    <span class="dashicons dashicons-phone"></span> Contact Us
+                                <a href="tel:08030756350" target="_blank" class="klump-link">
+                                    <span class="dashicons dashicons-phone"></span> Call: 08030756350
                                 </a>
                             </div>
                         </div>
